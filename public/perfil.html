@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+:root{
+    font-family: monospace;
+    font-size: 12px;
+}
+h1{
+    font-size: 3rem;
+}
+li{
+    list-style: none;
+}
+
+img{
+  width:100%;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+main{
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid black;
+  box-shadow: 10px 10px rgba(0,0,0);
+  padding: 1rem;
+  border-radius: 8px;
+
+}
+#contenedor_nombre{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+#perfil{
+  display: inline-flex;
+  gap: 12px;
+  border-radius: 8px;
+}
+#info{
+    padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+#contenedor_imagen{
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+
+}
+#contenedor_imagen img{
+    border-radius: 50%;
+}
+#qr{
+    width: 5vw;
+}
+
+    </style>
+</head>
+<body>
+    <main>
+        <section id="contenedor_nombre">
+            <h1>Firulai</h1>
+            <div id="qr">
+                <img src="" alt="">
+            </div>
+        </section>
+        <section id="perfil">
+            <div id="contenedor_imagen">
+                <img src="" alt="">
+            </div>
+            <div id="info">
+                <div id="uuid">
+                    <h2>UUID:</h2>
+                </div>
+                <div id="fechaNacimiento">
+                    <h2>Fecha de nacimiento:</h2>
+                </div>
+                <div id="personalidad">
+                    <h2>Personalidad</h2>
+                    <ul></ul>
+                </div>
+                <div id="vacunas">
+                    <h2>Vacunas</h2>
+                    <ul></ul>
+                </div>
+                <div id="proximaVisita">
+                    <h2>Próxima visita:</h2>
+                </div>
+            </div>
+          
+        </section>
+    </main>
+</body>
+
+<script>
+const nombreElement = document.querySelector("#contenedor_nombre h1");
+const imgElement = document.querySelector("#contenedor_imagen img");
+const fechaNacimientoElement = document.querySelector("#fechaNacimiento");
+const personalidadElement = document.querySelector("#personalidad ul");
+const vacunasElement = document.querySelector("#vacunas ul");
+const proximaVisitaElement = document.querySelector("#proximaVisita");
+const uuidElement = document.querySelector("#uuid");
+const qrElement = document.querySelector("#qr img");
+fetch("/animales")
+.then(response => response.json())
+.then(data => crearPerfil(data))
+
+function crearPerfil(data){
+    const { nombre, fechaNacimiento, imagen, personalidad, vacunas, proximaVisita, uuid } = data[Math.floor(Math.random() * data.length)];
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${uuid}`)
+    .then(response => {
+        qrElement.src = response.url;
+    })
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const proximaVisitaDate = new Date(proximaVisita);
+    console.log(data)
+    nombreElement.innerHTML = `${nombre}`;
+    imgElement.src = `${imagen}`;
+    fechaNacimientoElement.innerHTML += `${fechaNacimientoDate.getDate()}/${fechaNacimientoDate.getMonth()}/${fechaNacimientoDate.getFullYear()}`;
+    personalidad.forEach(p => {
+        const li = document.createElement("li");
+        li.innerHTML = p;
+        personalidadElement.appendChild(li);
+    });
+    vacunas.forEach(v => {
+        const li = document.createElement("li");
+        li.innerHTML = v;
+        vacunasElement.appendChild(li);
+    });
+    proximaVisitaElement.innerHTML += `<p>${proximaVisitaDate.getDate()}/${proximaVisitaDate.getMonth()}/${proximaVisitaDate.getFullYear()}</p>`;
+    uuidElement.innerHTML += `<p>${uuid}</p>`;
+    
+}
+</script>
+</html>

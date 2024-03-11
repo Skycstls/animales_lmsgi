@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "nombre": "Salchichas",
+        "fechaNacimiento": "2021-01-01",
+        "tipo": "Gato",
+        "foto": "https://www.petdarling.com/articulos/wp-content/uploads/201",
+        "vacunas": ["Moquillo", "Rabia", "Parvovirus"],
+        "proximaVisita": "2021-12-12",
+        "historial": [
+            {
+                "fecha": "2021-11-02",
+                "motivo": "Vacuna Moquillo",
+                "diagnostico": "Saludable"
+            },
+            {
+                "fecha": "2021-10-02",
+                "motivo": "Consulta",
+                "diagnostico": "Saludable"
+            },
+            {
+                "fecha": "2021-09-02",
+                "motivo": "Vacuna Parvovirus",
+                "diagnostico": "Saludable"
+            },
+            {
+                "fecha": "2021-08-02",
+                "motivo": "Vacuna Rabia",
+                "diagnostico": "Saludable"
+            }
+        ],
+        "esterilizado": true,
+        "peso": 3.5,
+        "color" : "Naranja, negra y blanca",
+        "sexo": "Hembra"
+    }
+]
